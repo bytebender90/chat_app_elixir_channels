@@ -9,6 +9,8 @@ defmodule ChatApp.Accounts.User do
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
 
+    # many_to_many :chats, ChatApp.Chats.Chat, join_through: "chats_users"
+
     timestamps(type: :utc_datetime)
   end
 

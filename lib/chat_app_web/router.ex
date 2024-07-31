@@ -15,18 +15,29 @@ defmodule ChatAppWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_current_user
   end
 
   scope "/", ChatAppWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
 
     get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ChatAppWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ChatAppWeb do
+    pipe_through [:api, :require_authenticated_user]
+
+    scope "/chats" do
+      post "/", ChatController, :create
+      get "/", ChatController, :index
+      get "/:id", ChatController, :show
+      delete "/:id", ChatController, :delete
+
+      # put "/:id", ChatController, :update
+    end
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:chat_app, :dev_routes) do
