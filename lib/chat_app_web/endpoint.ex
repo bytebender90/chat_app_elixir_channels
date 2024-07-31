@@ -50,4 +50,8 @@ defmodule ChatAppWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug ChatAppWeb.Router
+
+  socket "/socket", ChatAppWeb.ChatsSocket,
+    websocket: true,
+    longpoll: false
 end

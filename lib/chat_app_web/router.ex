@@ -23,6 +23,7 @@ defmodule ChatAppWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/", PageController, :home
+    get "/:id", PageController, :chat
   end
 
   # Other scopes may use custom stacks.

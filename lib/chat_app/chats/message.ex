@@ -2,6 +2,8 @@ defmodule ChatApp.Chats.Message do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :content, :chat_id, :sender_id, :inserted_at]}
+
   schema "messages" do
     field :content, :string
     belongs_to :chat, ChatApp.Chats.Chat

@@ -24,6 +24,19 @@ defmodule ChatApp.Chats do
   end
 
   @doc """
+  Returns the list of chats.
+
+  ## Examples
+
+      iex> list_chats(%{"search_key" => key})
+      [%Chat{}, ...]
+
+  """
+  def list_chats(%{"search_key" => key}) do
+    Chat |> where([c], ilike(c.name, ^key)) |> Repo.all()
+  end
+
+  @doc """
   Gets a single chat.
 
   Raises `Ecto.NoResultsError` if the Chat does not exist.
